@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skgix</title>
+  <style>
+    :root {
+      --rojo: #8b0000;
+      --dorado: #ffcc00;
+      --glass: rgba(255, 255, 255, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to bottom, #200202, #550000);
+      color: white;
+    }
+
+    /* Parallax background */
+    .hero {
+  height: 100vh;
+  background: url('https://i.imgur.com/W5GalTh.png') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero h1 {
+      position: relative;
+      font-size: 3rem;
+      color: var(--dorado);
+      animation: fadeInDown 1s ease-out;
+      z-index: 1;
+    }
+
+    section {
+      padding: 100px 20px;
+      text-align: center;
+      background: #300505;
+    }
+
+    section:nth-child(even) {
+      background: #420707;
+    }
+
+    h2 {
+      color: var(--dorado);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      max-width: 600px;
+      margin: auto;
+      color: #f8cccc;
+    }
+
+    /* Dock Menu */
+    nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      display: flex;
+      gap: 25px;
+      padding: 12px 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      z-index: 999;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      padding: 8px 14px;
+      border-radius: 14px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: var(--dorado);
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    /* Animaciones */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        padding: 10px;
+      }
+      nav a {
+        font-size: 1rem;
+        padding: 6px 12px;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero" id="inicio">
+    <h1>Bienvenido a mi web !1!1!1!</h1>
+  </div>
+
+  <section id="acerca" class="fade-in">
+    <h2>un goku durisimo</h2>
+    <p>un goku durisimo siendo albañil</p>
+  </section>
+
+  <section id="galeria" class="fade-in">
+    <h2>Galería?</h2>
+    <p>ya nos e que poner</p>
+  </section>
+
+  <section id="contacto" class="fade-in">
+    <h2>Contacto</h2>
+    <p>Puedes contactarme más adelante cuando el sitio esté completo. Esto es solo el comienzo.</p>
+  </section>
+
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#acerca">Acerca</a>
+    <a href="#galeria">Galería</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+
+  <!-- JS para animaciones al hacer scroll -->
+  <script>
+    const faders = document.querySelectorAll('.fade-in');
+
+    const appearOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+  </script>
+
+</body>
+</html>
